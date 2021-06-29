@@ -19,3 +19,49 @@ spec:
       - image: accessbankdev.azurecr.io/mypipeline:1818
         name: mypipeline
         containerPort: 80
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mypipeline
+  namespace: mypipeline
+spec:
+  selector:
+    app: mypipeline
+  ports:
+  - port: 80
+    targetPort: 80
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: mypipeline
+  namespace: mypipeline
+  annotations:
+    kubernetes.io/ingress.class: "traefik"
+  labels:
+    name: mypipeline
+spec:
+  rules:
+  - host: app.accessbankplc.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: mypipeline
+            port: 
+              number: 80
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: mypipeline
