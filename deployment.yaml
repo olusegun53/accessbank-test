@@ -50,8 +50,6 @@ kind: Ingress
 metadata:
   name: mypipeline
   namespace: mypipeline
-  annotations:
-    kubernetes.io/ingress.class: traefik
 spec:
   rules:
   - http:
