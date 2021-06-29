@@ -18,7 +18,8 @@ spec:
       containers:
       - image: accessbankdev.azurecr.io/mypipeline:1818
         name: mypipeline
-        containerPort: 80
+        ports:
+          - containerPort: 80
         resources:
           requests:
             memory: "64Mi"
