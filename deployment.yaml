@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: mypipeline
+  name: mypipeline
+  namespace: mypipeline
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mypipeline
+  template:
+    metadata:
+      labels:
+        app: mypipeline
+    spec:
+      containers:
+      - image: accessbankdev.azurecr.io/mypipeline:1818
+        name: mypipeline
+        containerPort: 80
