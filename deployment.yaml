@@ -44,18 +44,3 @@ spec:
   ports:
   - port: 80
     targetPort: 80
----
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: mypipeline
-  namespace: mypipeline
-spec:
-  rules:
-  - http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          serviceName: mypipeline
-          servicePort: 80
