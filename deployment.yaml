@@ -1,3 +1,8 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: mypipeline
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -46,23 +51,13 @@ metadata:
   name: mypipeline
   namespace: mypipeline
   annotations:
-    kubernetes.io/ingress.class: "traefik"
-  labels:
-    name: mypipeline
+    kubernetes.io/ingress.class: traefik
 spec:
   rules:
-  - host: app.accessbankplc.com
-    http:
+  - http:
       paths:
-      - pathType: Prefix
-        path: "/"
+      - path: /
+        pathType: Prefix
         backend:
-          service:
-            name: mypipeline
-            port: 
-              number: 80
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: mypipeline
+          serviceName: mypipeline
+          servicePort: 80
